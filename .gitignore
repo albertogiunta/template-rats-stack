@@ -22,3 +22,16 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# Database
+db/data.db
+db/data.db-shm
+db/data.db-wal
+db/rss-cache/
+
+# Drizzle
+drizzle/
+
+# Environment
+.env
+.env.local

@@ -1,43 +1,85 @@
-# Astro Starter Kit: Minimal
+# My Stack Template
 
-```sh
-pnpm create astro@latest -- --template minimal
+Simple full-stack TypeScript template with Astro, React, SQLite.
+
+## Stack
+
+- **Frontend**: Astro + React (SPA mode) + Tailwind + shadcn/ui
+- **Data**: React Query
+- **Database**: SQLite + Drizzle ORM
+- **Deployment**: Anywhere Node.js runs
+
 ```
-
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
-
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
 ├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+│   ├── components/
+│   │   ├── app/          # Your app components
+│   │   ├── ui/           # shadcn components
+│   │   └── App.tsx       # React root
+│   ├── lib/
+│   │   ├── db/           # Database schema & client
+│   │   ├── services/     # Business logic
+│   │   └── config.ts     # App configuration
+│   ├── pages/
+│   │   ├── [...app].astro    # React SPA entry
+│   │   └── api/              # API endpoints
+│   └── styles/
+├── db/
+│   └── seeds/            # Seed scripts
+└── drizzle/              # Generated migrations
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## Getting Started
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+```bash
+# Install dependencies
+pnpm install
 
-Any static assets, like images, can be placed in the `public/` directory.
+# Set up environment
+cp .env.example .env
 
-## 🧞 Commands
+# Initialize database
+pnpm db:generate  # 1. Generate initial migration
+pnpm db:migrate   # 2. Apply migration (creates db/data.db)
+pnpm db:seed      # 3. Seed with sample data
 
-All commands are run from the root of the project, from a terminal:
+# Start dev server
+pnpm dev
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `pnpm install`             | Installs dependencies                            |
-| `pnpm dev`             | Starts local dev server at `localhost:4321`      |
-| `pnpm build`           | Build your production site to `./dist/`          |
-| `pnpm preview`         | Preview your build locally, before deploying     |
-| `pnpm astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `pnpm astro -- --help` | Get help using the Astro CLI                     |
+# Visit http://localhost:4321/app
+```
 
-## 👀 Want to learn more?
+## Common operations
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+Update database schema: Edit src/lib/db/schema.ts
+Generate migration: pnpm db:generate
+Update seed data: Edit db/seeds/seed.ts
+Update components: Replace files in src/components/app/
+Update API routes: Edit files in src/pages/api/
+Update config: Edit .env and src/lib/config.ts
+
+## VPS Deployment
+
+```bash
+# Build
+pnpm build
+
+# Copy to server
+rsync -avz dist/ user@server:/var/www/app/
+rsync -avz db/ user@server:/var/www/app/db/
+
+# On server, run with Node
+node dist/server/entry.mjs
+```
+
+## Docker Deployment
+
+```dockerfile
+FROM node:20-alpine
+WORKDIR /app
+COPY package*.json ./
+RUN npm install
+COPY . .
+RUN npm run build
+EXPOSE 4321
+CMD ["node", "dist/server/entry.mjs"]
+```
