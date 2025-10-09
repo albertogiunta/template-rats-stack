@@ -83,3 +83,24 @@ RUN npm run build
 EXPOSE 4321
 CMD ["node", "dist/server/entry.mjs"]
 ```
+
+# Create new project from template
+```bash
+gh repo create new-project --template albertogiunta/template-rats-stack --private --clone
+cd new-project
+
+# Install and initialize
+pnpm install
+cp .env.example .env
+pnpm db:generate
+pnpm db:migrate
+pnpm db:seed
+
+# Customize schema
+# Edit src/lib/db/schema.ts
+pnpm db:generate
+pnpm db:migrate
+
+# Start building
+pnpm dev
+```
