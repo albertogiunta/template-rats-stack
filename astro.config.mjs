@@ -5,12 +5,16 @@ import tailwindcss from "@tailwindcss/vite";
 import react from "@astrojs/react";
 
 import sitemap from "@astrojs/sitemap";
+import node from "@astrojs/node";
 
 // https://astro.build/config
 export default defineConfig({
   // DOCS: https://docs.astro.build/en/guides/integrations-guide/sitemap/
   site: "https://placeholder.com", // final deployed url, needed by astro sitemap
   output: "server",
+  adapter: node({
+    mode: "standalone",
+  }),
   vite: {
     plugins: [tailwindcss()],
   },
