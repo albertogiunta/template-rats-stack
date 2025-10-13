@@ -1,0 +1,16 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "4321:4321"
+    volumes:
+      # Mount db directory to persist SQLite data
+      - ./db-data:/app/db
+    environment:
+      - DATABASE_PATH=/app/db/data.db
+      - PUBLIC_APP_URL=http://localhost:4321
+      - PUBLIC_APP_NAME=placeholder
+      - NODE_ENV=production
+    restart: unless-stopped
