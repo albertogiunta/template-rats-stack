@@ -104,3 +104,18 @@ pnpm db:migrate
 # Start building
 pnpm dev
 ```
+
+## Syncing with Template Updates
+
+To pull updates from the template repository:
+
+```bash
+# Add template as remote (one-time setup)
+git remote add template https://github.com/albertogiunta/template-rats-stack
+
+# Fetch latest changes
+git fetch --all
+
+# Merge template updates
+git merge template/main --allow-unrelated-histories
+```
