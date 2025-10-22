@@ -5,6 +5,7 @@ services:
       dockerfile: Dockerfile
     ports:
       - "4321:4321"
+      - "127.0.0.1:49xx:4983"  # Drizzle Studio - change the xx incrementally for each new instance. NB. also update the port inside db:studio:remote in package.json
     volumes:
       # Mount db directory to persist SQLite data
       - ./db-data:/app/db

@@ -37,6 +37,8 @@ pnpm install
 # Set up environment
 cp .env.example .env
 
+# Update the schema to your needs
+
 # Initialize database
 pnpm db:generate  # 1. Generate initial migration
 pnpm db:migrate   # 2. Apply migration (creates db/data.db)
@@ -57,19 +59,44 @@ Update components: Replace files in src/components/app/
 Update API routes: Edit files in src/pages/api/
 Update config: Edit .env and src/lib/config.ts
 
-## VPS Deployment
+### Updating database schema
+
+After editing `src/lib/db/schema.ts`:
 
 ```bash
-# Build
-pnpm build
+# 1. Generate migration from schema changes
+pnpm db:generate
 
-# Copy to server
-rsync -avz dist/ user@server:/var/www/app/
-rsync -avz db/ user@server:/var/www/app/db/
+# 2. Apply migration to database
+pnpm db:migrate
 
-# On server, run with Node
-node dist/server/entry.mjs
+# 3. Re-seed database (optional, but recommended)
+pnpm db:seed
 ```
+
+## Access Remote Database Client
+
+### 1. Start Drizzle studio on the VPS
+From the remote Coolify terminal:
+- `https://coolify.albertogiunta.com/project/===placeholder===/terminal`
+- `pnpm db:studio:remote` 
+
+From a local terminal:
+- `ssh  root@5.161.62.19`
+- `cd /data/coolify/applications/===project_container_id===/`
+- `docker compose exec app pnpm db:studio:remote`
+
+### 2. Open an SSH tunnel
+From a local terminal:
+- `ssh -L 5000:localhost:49xx root@5.161.62.19`
+
+### 3. Open Drizzle Studio a browser
+- [https://local.drizzle.studio/?port=5000](https://local.drizzle.studio/?port=5000)
+
+### Useful Docker commands
+- Start Drizzle Studio: `docker compose exec app pnpm db:studio:remote`
+- Check open ports: `docker compose exec app ps aux`
+- Kill Drizzle Studio: `docker compose exec app pkill -f "drizzle-kit studio"`
 
 ## Docker Deployment
 
@@ -105,17 +132,10 @@ pnpm db:migrate
 pnpm dev
 ```
 
-## Syncing with Template Updates
-
-To pull updates from the template repository:
+# Pull changes from template
 
 ```bash
-# Add template as remote (one-time setup)
-git remote add template https://github.com/albertogiunta/template-rats-stack
-
-# Fetch latest changes
-git fetch --all
-
-# Merge template updates
+git remote add template https://github.com/albertogiunta/template-rats-stack.git
+git fetch template
 git merge template/main --allow-unrelated-histories
 ```
