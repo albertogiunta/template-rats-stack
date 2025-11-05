@@ -7,25 +7,31 @@ Simple full-stack TypeScript template with Astro, React, SQLite.
 - **Frontend**: Astro + React (SPA mode) + Tailwind + shadcn/ui
 - **Data**: React Query
 - **Database**: SQLite + Drizzle ORM
+- **Authentication**: better-auth (opt-in) with email/password + OAuth
 - **Deployment**: Anywhere Node.js runs
 
 ```
 ├── src/
 │   ├── components/
-│   │   ├── app/          # Your app components
+│   │   ├── app/
+│   │   │   ├── auth/     # Auth components (opt-in)
+│   │   │   └── ...       # Your app components
 │   │   ├── ui/           # shadcn components
 │   │   └── App.tsx       # React root
 │   ├── lib/
+│   │   ├── auth/         # Auth config & utils (opt-in)
 │   │   ├── db/           # Database schema & client
 │   │   ├── services/     # Business logic
 │   │   └── config.ts     # App configuration
 │   ├── pages/
 │   │   ├── [...app].astro    # React SPA entry
-│   │   └── api/              # API endpoints
+│   │   └── api/
+│   │       └── auth/     # Auth API routes (opt-in)
 │   └── styles/
 ├── db/
 │   └── seeds/            # Seed scripts
-└── drizzle/              # Generated migrations
+├── drizzle/              # Generated migrations
+└── AUTH.md               # Authentication guide
 ```
 
 ## Getting Started
@@ -73,6 +79,25 @@ pnpm db:migrate
 # 3. Re-seed database (optional, but recommended)
 pnpm db:seed
 ```
+
+## Authentication (Optional)
+
+This template includes a complete authentication system that's **opt-in** and easy to enable when needed.
+
+**Features:**
+- Email/password authentication
+- Google OAuth sign-in
+- Role-based access control (admin, user)
+- Protected routes for both Astro and React
+- Type-safe session management
+
+**Quick Setup:**
+1. Uncomment auth variables in `astro.config.mjs` and `.env`
+2. Generate a secret: `openssl rand -base64 32`
+3. Run database migrations: `pnpm db:generate && pnpm db:migrate`
+4. (Optional) Configure Google OAuth credentials
+
+**See [AUTH.md](./AUTH.md) for complete setup instructions and usage examples.**
 
 ## Access Remote Database Client
 
