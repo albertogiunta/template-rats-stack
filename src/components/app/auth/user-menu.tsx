@@ -1,16 +1,21 @@
 import { authClient, useSession } from "@/lib/auth/client";
 import { Button } from "@/components/ui/button";
 
+interface UserMenuProps {
+  onUpgradeClick?: () => void;
+}
+
 /**
  * User Menu Component
  *
  * Displays the current user's information and provides a logout button.
+ * For anonymous users, shows an option to sign in and save their progress.
  * Shows loading state while checking authentication.
  *
  * @example
- * <UserMenu />
+ * <UserMenu onUpgradeClick={() => setShowAuthModal(true)} />
  */
-export function UserMenu() {
+export function UserMenu({ onUpgradeClick }: UserMenuProps) {
   const { data: session, isPending } = useSession();
 
   const handleLogout = async () => {
@@ -33,7 +38,31 @@ export function UserMenu() {
 
   const user = session.user;
   const userRole = (user as any).role || "user";
+  const isAnonymous = (user as any).isAnonymous || false;
 
+  // For anonymous users, show upgrade prompt
+  if (isAnonymous) {
+    return (
+      <div className="flex items-center gap-4">
+        <div className="flex items-center gap-3">
+          <div className="flex h-8 w-8 items-center justify-center rounded-full bg-amber-100">
+            <span className="text-sm font-medium text-amber-600">
+              {user.name.charAt(0).toUpperCase()}
+            </span>
+          </div>
+          <div className="flex flex-col">
+            <span className="text-sm font-medium">{user.name}</span>
+            <span className="text-xs text-amber-600">Guest</span>
+          </div>
+        </div>
+        <Button variant="default" size="sm" onClick={onUpgradeClick}>
+          Sign In to Save
+        </Button>
+      </div>
+    );
+  }
+
+  // For authenticated users, show normal menu
   return (
     <div className="flex items-center gap-4">
       <div className="flex items-center gap-3">

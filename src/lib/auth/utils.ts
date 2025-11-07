@@ -1,5 +1,5 @@
 import type { APIContext } from "astro";
-import { auth } from "./index";
+import { auth } from "../auth";
 
 /**
  * Authentication Utilities

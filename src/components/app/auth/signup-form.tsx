@@ -73,20 +73,7 @@ export function SignupForm({ redirectTo = "/app", onSuccess }: SignupFormProps) 
 
   return (
     <div className="w-full max-w-md space-y-6">
-      <form onSubmit={handleEmailSignup} className="space-y-4">
-        <div className="space-y-2">
-          <Label htmlFor="name">Full Name</Label>
-          <Input
-            id="name"
-            type="text"
-            placeholder="John Doe"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            required
-            disabled={isLoading}
-          />
-        </div>
-
+      {/* <form onSubmit={handleEmailSignup} className="space-y-4">
         <div className="space-y-2">
           <Label htmlFor="email">Email</Label>
           <Input
@@ -126,16 +113,16 @@ export function SignupForm({ redirectTo = "/app", onSuccess }: SignupFormProps) 
         <Button type="submit" className="w-full" disabled={isLoading}>
           {isLoading ? "Creating account..." : "Create account"}
         </Button>
-      </form>
+      </form> */}
 
-      <div className="relative">
+      {/* <div className="relative">
         <div className="absolute inset-0 flex items-center">
           <div className="w-full border-t border-gray-300" />
         </div>
         <div className="relative flex justify-center text-sm">
           <span className="bg-white px-2 text-gray-500">Or continue with</span>
         </div>
-      </div>
+      </div> */}
 
       <Button
         type="button"

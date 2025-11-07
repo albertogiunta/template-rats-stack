@@ -64,7 +64,7 @@ export function LoginForm({ redirectTo = "/app", onSuccess }: LoginFormProps) {
 
   return (
     <div className="w-full max-w-md space-y-6">
-      <form onSubmit={handleEmailLogin} className="space-y-4">
+      {/* <form onSubmit={handleEmailLogin} className="space-y-4">
         <div className="space-y-2">
           <Label htmlFor="email">Email</Label>
           <Input
@@ -100,16 +100,16 @@ export function LoginForm({ redirectTo = "/app", onSuccess }: LoginFormProps) {
         <Button type="submit" className="w-full" disabled={isLoading}>
           {isLoading ? "Signing in..." : "Sign in"}
         </Button>
-      </form>
+      </form> */}
 
-      <div className="relative">
+      {/* <div className="relative">
         <div className="absolute inset-0 flex items-center">
           <div className="w-full border-t border-gray-300" />
         </div>
         <div className="relative flex justify-center text-sm">
           <span className="bg-white px-2 text-gray-500">Or continue with</span>
         </div>
-      </div>
+      </div> */}
 
       <Button
         type="button"

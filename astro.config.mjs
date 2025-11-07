@@ -16,6 +16,7 @@ export default defineConfig({
     mode: "standalone",
   }),
   vite: {
+    // @ts-ignore
     plugins: [tailwindcss()],
   },
   integrations: [react({}), sitemap({})],
@@ -42,23 +43,22 @@ export default defineConfig({
       }),
 
       // Authentication (better-auth)
-      // Uncomment these when you're ready to enable authentication
-      // AUTH_SECRET: envField.string({
-      //   context: 'server',
-      //   access: 'secret',
-      // }),
-      //
-      // GOOGLE_CLIENT_ID: envField.string({
-      //   context: 'server',
-      //   access: 'secret',
-      //   optional: true,
-      // }),
-      //
-      // GOOGLE_CLIENT_SECRET: envField.string({
-      //   context: 'server',
-      //   access: 'secret',
-      //   optional: true,
-      // }),
+      AUTH_SECRET: envField.string({
+        context: 'server',
+        access: 'secret',
+      }),
+
+      GOOGLE_CLIENT_ID: envField.string({
+        context: 'server',
+        access: 'secret',
+        optional: true,
+      }),
+
+      GOOGLE_CLIENT_SECRET: envField.string({
+        context: 'server',
+        access: 'secret',
+        optional: true,
+      }),
 
       // Example: Third-party API (secret, server-only)
       // THIRD_PARTY_API_KEY: envField.string({

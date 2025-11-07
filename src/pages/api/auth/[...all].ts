@@ -11,9 +11,10 @@ import { auth } from "@/lib/auth";
  * - GET /api/auth/callback/google - Google OAuth callback
  * - POST /api/auth/sign-out - Sign out
  * - GET /api/auth/session - Get current session
- * - And more...
+ * - more...
  *
  * @see https://www.better-auth.com/docs/concepts/api-reference
+ * @see https://www.better-auth.com/docs/integrations/astro
  */
 export const ALL: APIRoute = async (context) => {
   return auth.handler(context.request);

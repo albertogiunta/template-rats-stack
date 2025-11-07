@@ -11,9 +11,8 @@ export { SignupForm } from "./signup-form";
 // Components
 export { UserMenu } from "./user-menu";
 export { ProtectedRoute } from "./protected-route";
+export { AuthModal } from "./auth-modal";
 
 // Example Pages
-export { LoginPage } from "./pages/LoginPage";
-export { SignupPage } from "./pages/SignupPage";
 export { DashboardPage } from "./pages/DashboardPage";
 export { AdminPage } from "./pages/AdminPage";
