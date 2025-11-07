@@ -68,6 +68,26 @@ Environment variables are managed via Astro's native `env` schema in `astro.conf
 
 Use `@/` alias to import from `src/` (configured in tsconfig.json).
 
+### Authentication Layer (Opt-In)
+
+The template includes a complete authentication system powered by better-auth:
+
+- **Configuration**: `src/lib/auth/index.ts` - Main better-auth setup with Drizzle adapter
+- **Schema**: `src/lib/auth/schema.ts` - Database tables (user, session, account, verification)
+- **Client**: `src/lib/auth/client.ts` - React hooks and client utilities
+- **Utils**: `src/lib/auth/utils.ts` - Server-side utilities for Astro pages
+- **Components**: `src/components/app/auth/` - Login, signup, and protected route components
+- **API**: `src/pages/api/auth/[...all].ts` - Catch-all route for auth endpoints
+
+**Features**:
+- Email/password authentication
+- Google OAuth (when configured)
+- Role-based access control (user, admin)
+- Protected routes for Astro and React
+- Type-safe session management
+
+**To enable**: See AUTH.md for setup instructions.
+
 ## Common Workflows
 
 ### Modifying Database Schema
@@ -93,6 +113,34 @@ Use `@/` alias to import from `src/` (configured in tsconfig.json).
 pnpm dlx shadcn@latest add [component-name]
 ```
 Components install to `src/components/ui/`
+
+### Working with Authentication
+
+**Protecting an Astro page:**
+```astro
+---
+import { requireAuth } from "@/lib/auth/utils";
+const session = await requireAuth(Astro);
+---
+```
+
+**Protecting a React component:**
+```tsx
+import { ProtectedRoute } from "@/components/app/auth";
+<ProtectedRoute><YourComponent /></ProtectedRoute>
+```
+
+**Using session in React:**
+```tsx
+import { useSession } from "@/lib/auth/client";
+const { data: session } = useSession();
+```
+
+**Checking roles:**
+```tsx
+import { hasRole } from "@/lib/auth/utils";
+if (hasRole(session, "admin")) { /* ... */ }
+```
 
 ## Deployment
 

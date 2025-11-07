@@ -1,24 +1,20 @@
+import { PUBLIC_APP_URL } from "astro:env/client";
+import {
+  AUTH_SECRET,
+  DATABASE_PATH,
+  GOOGLE_CLIENT_ID,
+  GOOGLE_CLIENT_SECRET,
+} from "astro:env/server";
 import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { createAuthMiddleware } from "better-auth/api";
 import {
-  anonymous,
-  emailOTP,
-  lastLoginMethod,
-  magicLink,
-  oneTap,
+  anonymous
 } from "better-auth/plugins";
 import Database from "better-sqlite3";
 import { drizzle } from "drizzle-orm/better-sqlite3";
 import * as schema from "./auth/schema";
 import { items } from "./db/schema";
-import {
-  DATABASE_PATH,
-  AUTH_SECRET,
-  GOOGLE_CLIENT_ID,
-  GOOGLE_CLIENT_SECRET,
-} from "astro:env/server";
-import { PUBLIC_APP_URL } from "astro:env/client";
 
 // Import environment variables from Astro's env schema
 const AUTH_URL = PUBLIC_APP_URL || "http://localhost:4321";
