@@ -10,7 +10,7 @@ import node from "@astrojs/node";
 // https://astro.build/config
 export default defineConfig({
   // DOCS: https://docs.astro.build/en/guides/integrations-guide/sitemap/
-  site: "https://placeholder.com", // final deployed url, needed by astro sitemap
+  site: "https://appname.com", // final deployed url, needed by astro sitemap
   output: "server",
   adapter: node({
     mode: "standalone",
@@ -33,7 +33,7 @@ export default defineConfig({
       PUBLIC_APP_NAME: envField.string({
         context: "client",
         access: "public",
-        default: "placeholder",
+        default: "App Name",
       }),
 
       PUBLIC_APP_URL: envField.string({

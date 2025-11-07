@@ -1,6 +1,6 @@
-# My Stack Template
+# RATS Stack Template
 
-Simple full-stack TypeScript template with Astro, React, SQLite.
+Simple full-stack TypeScript template: React + Astro + Tailwind + SQLite.
 
 ## Stack
 
@@ -103,17 +103,17 @@ This template includes a complete authentication system that's **opt-in** and ea
 
 ### 1. Start Drizzle studio on the VPS
 From the remote Coolify terminal:
-- `https://coolify.albertogiunta.com/project/===placeholder===/terminal`
-- `pnpm db:studio:remote` 
+- `https://coolify.yourserver.com/project/PROJECT_ID/terminal`
+- `pnpm db:studio:remote`
 
 From a local terminal:
-- `ssh  root@5.161.62.19`
-- `cd /data/coolify/applications/===project_container_id===/`
+- `ssh root@SERVER_IP`
+- `cd /data/coolify/applications/CONTAINER_ID/`
 - `docker compose exec app pnpm db:studio:remote`
 
 ### 2. Open an SSH tunnel
 From a local terminal:
-- `ssh -L 5000:localhost:49xx root@5.161.62.19`
+- `ssh -L 5000:localhost:DBPORT root@SERVER_IP`
 
 ### 3. Open Drizzle Studio a browser
 - [https://local.drizzle.studio/?port=5000](https://local.drizzle.studio/?port=5000)
@@ -137,27 +137,34 @@ CMD ["node", "dist/server/entry.mjs"]
 ```
 
 # Create new project from template
+
+## Quick Start
+
 ```bash
-gh repo create new-project --template albertogiunta/template-rats-stack --private --clone
-cd new-project
+# Create from template
+gh repo create my-project --template albertogiunta/template-rats-stack --private --clone
+cd my-project
+
+# Replace placeholders (see PLACEHOLDERS.md for details)
+# Quick find-replace: appname → my-project, "App Name" → "My Project", etc.
 
 # Install and initialize
 pnpm install
 cp .env.example .env
+# Edit .env with your values
+
+# Initialize database
 pnpm db:generate
 pnpm db:migrate
 pnpm db:seed
-
-# Customize schema
-# Edit src/lib/db/schema.ts
-pnpm db:generate
-pnpm db:migrate
 
 # Start building
 pnpm dev
 ```
 
-# Pull changes from template
+See [PLACEHOLDERS.md](./PLACEHOLDERS.md) for a complete list of placeholders to replace.
+
+## Pull changes from template
 
 ```bash
 git remote add template https://github.com/albertogiunta/template-rats-stack.git

@@ -292,7 +292,7 @@ export const auth = betterAuth({
 
   // Advanced configuration
   advanced: {
-    cookiePrefix: "rats_auth",
+    cookiePrefix: "appname_auth",
     defaultCookieAttributes: {
       sameSite: "lax",
       secure: process.env.NODE_ENV === "production",

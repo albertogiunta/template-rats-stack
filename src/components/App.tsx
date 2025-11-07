@@ -42,7 +42,7 @@ function AppContent() {
       <div className="bg-background min-h-screen">
         <header className="border-b">
           <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-            <h1 className="text-2xl font-bold">Welcome to the RATS Stack</h1>
+            <h1 className="text-2xl font-bold">App Name</h1>
             {session && <UserMenu onUpgradeClick={() => setIsAuthModalOpen(true)} />}
           </div>
         </header>
